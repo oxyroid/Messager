@@ -1,41 +1,28 @@
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
-import feature.mail.list.ListRoute
-import kotlinx.coroutines.delay
+import androidx.compose.ui.Modifier
+import feature.mail.MailRoute
 import ui.*
 import ui.components.UncaughtExceptionHandler
 import ui.scaffolds.HomeScaffold
-import ui.scaffolds.MailScaffold
 import ui.toolbars.HomeToolbar
 import ui.toolbars.HomeToolbarDestination
-import kotlin.time.Duration.Companion.seconds
 
 @Composable
-fun App() {
+fun App(
+    modifier: Modifier = Modifier
+) {
     BasicApp {
-        val catcher = LocalCatcher.current
         var destination: HomeToolbarDestination by remember { mutableStateOf(HomeToolbarDestination.MAILS) }
         HomeScaffold(
             toolbar = {
                 HomeToolbar(destination = destination) { destination = it }
-            }
+            },
+            modifier = modifier
         ) {
             when (destination) {
-                HomeToolbarDestination.MAILS -> {
-                    MailScaffold(
-                        list = {
-                            ListRoute()
-                        },
-                        detail = @Composable {
-                            LaunchedEffect(Unit) {
-                                delay(3.seconds)
-                                catcher.catch(RuntimeException("Hello!"))
-                            }
-                        }
-                    )
-                }
-
+                HomeToolbarDestination.MAILS -> MailRoute()
                 HomeToolbarDestination.SETTINGS -> {}
             }
         }
@@ -48,8 +35,11 @@ private fun BasicApp(
 ) {
     var exception: Exception? by remember { mutableStateOf(null) }
 
-    val catcher = remember {
-        object : Catcher {
+    val sentry = remember {
+        object : Sentry {
+            override fun note(message: String) {
+                // show note
+            }
             override fun catch(e: Exception) {
                 exception = e
             }
@@ -58,7 +48,7 @@ private fun BasicApp(
     CompositionLocalProvider(
         LocalTheme provides DayTheme,
         LocalSpacing provides Spacing(),
-        LocalCatcher provides catcher
+        LocalSentry provides sentry
     ) {
         val theme = LocalTheme.current
         MaterialTheme(
@@ -83,8 +73,9 @@ private fun BasicApp(
 }
 
 @Stable
-interface Catcher {
+interface Sentry {
+    fun note(message: String)
     fun catch(e: Exception)
 }
 
-val LocalCatcher = staticCompositionLocalOf<Catcher> { providableCompostionLocalNotFound() }
+val LocalSentry = staticCompositionLocalOf<Sentry> { providableCompostionLocalNotFound() }
