@@ -39,6 +39,7 @@ fun UncaughtExceptionHandler(
         val spacing = LocalSpacing.current
         val state = rememberScrollState()
         val combined = Modifier
+            .fillMaxSize()
             .verticalScroll(state)
             .padding(
                 start = spacing.medium,
