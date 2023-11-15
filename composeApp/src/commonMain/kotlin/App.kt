@@ -9,14 +9,14 @@ import ui.*
 import ui.components.UncaughtExceptionHandler
 import ui.scaffolds.HomeScaffold
 import ui.toolbars.HomeToolbar
-import ui.toolbars.HomeToolbarDestination
+import ui.toolbars.HomeDestination
 
 @Composable
 fun App(
     modifier: Modifier = Modifier
 ) {
     BasicApp {
-        var destination: HomeToolbarDestination by remember { mutableStateOf(HomeToolbarDestination.MAILS) }
+        var destination: HomeDestination by remember { mutableStateOf(HomeDestination.MAILS) }
         HomeScaffold(
             toolbar = {
                 HomeToolbar(destination) { destination = it }
@@ -24,8 +24,8 @@ fun App(
             modifier = modifier
         ) {
             when (destination) {
-                HomeToolbarDestination.MAILS -> MailRoute()
-                HomeToolbarDestination.SETTINGS -> SettingsRoute()
+                HomeDestination.MAILS -> MailRoute()
+                HomeDestination.SETTINGS -> SettingsRoute()
             }
         }
     }

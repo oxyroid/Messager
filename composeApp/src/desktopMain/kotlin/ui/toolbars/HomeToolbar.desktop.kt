@@ -14,10 +14,10 @@ import ui.LocalTheme
 
 @Composable
 actual fun HomeToolbar(
-    destination: HomeToolbarDestination,
+    destination: HomeDestination,
     modifier: Modifier,
-    destinationFactory: () -> List<HomeToolbarDestination>,
-    onDestination: (HomeToolbarDestination) -> Unit,
+    destinationFactory: () -> List<HomeDestination>,
+    onDestination: (HomeDestination) -> Unit,
 ) {
     val spacing = LocalSpacing.current
     val theme = LocalTheme.current

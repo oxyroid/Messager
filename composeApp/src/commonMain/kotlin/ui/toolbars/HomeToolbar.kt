@@ -14,10 +14,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 
 @Composable
 expect fun HomeToolbar(
-    destination: HomeToolbarDestination,
+    destination: HomeDestination,
     modifier: Modifier = Modifier,
-    destinationFactory: () -> List<HomeToolbarDestination> = { HomeToolbarDestination.entries },
-    onDestination: (HomeToolbarDestination) -> Unit,
+    destinationFactory: () -> List<HomeDestination> = { HomeDestination.entries },
+    onDestination: (HomeDestination) -> Unit,
 )
 
 @Composable
@@ -49,7 +49,7 @@ fun HomeToolbarItem(
     }
 }
 
-enum class HomeToolbarDestination(
+enum class HomeDestination(
     val selectedIcon: ImageVector,
     val unselectedIcon: ImageVector,
     val contentDescription: String?

@@ -5,9 +5,9 @@ import androidx.compose.ui.Modifier
 
 @Composable
 actual fun HomeToolbar(
-    destination: HomeToolbarDestination,
+    destination: HomeDestination,
     modifier: Modifier,
-    destinationFactory: () -> List<HomeToolbarDestination>,
-    onDestination: (HomeToolbarDestination) -> Unit,
+    destinationFactory: () -> List<HomeDestination>,
+    onDestination: (HomeDestination) -> Unit,
 ) {
 }
