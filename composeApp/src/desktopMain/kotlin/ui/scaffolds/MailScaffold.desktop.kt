@@ -23,7 +23,7 @@ actual fun MailScaffold(
     modifier: Modifier
 ) {
     val theme = LocalTheme.current
-    Row {
+    Row(modifier) {
         val windowInfo = LocalWindowInfo.current
         val modularity = with(windowInfo.containerSize) { width > height }
 

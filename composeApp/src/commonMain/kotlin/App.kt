@@ -2,7 +2,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import data.wrapper.Castable
 import feature.mail.MailRoute
+import feature.settings.SettingsRoute
 import ui.*
 import ui.components.UncaughtExceptionHandler
 import ui.scaffolds.HomeScaffold
@@ -23,7 +25,7 @@ fun App(
         ) {
             when (destination) {
                 HomeToolbarDestination.MAILS -> MailRoute()
-                HomeToolbarDestination.SETTINGS -> {}
+                HomeToolbarDestination.SETTINGS -> SettingsRoute()
             }
         }
     }
@@ -37,9 +39,10 @@ private fun BasicApp(
 
     val sentry = remember {
         object : Sentry {
-            override fun note(message: String) {
-                // show note
+            override fun cast(castable: Castable) {
+                exception = castable.cast()
             }
+
             override fun catch(e: Exception) {
                 exception = e
             }
@@ -74,7 +77,7 @@ private fun BasicApp(
 
 @Stable
 interface Sentry {
-    fun note(message: String)
+    fun cast(castable: Castable)
     fun catch(e: Exception)
 }
 

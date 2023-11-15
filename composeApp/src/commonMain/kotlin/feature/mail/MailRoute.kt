@@ -13,7 +13,7 @@ import kotlin.time.Duration.Companion.seconds
 fun MailRoute(
     modifier: Modifier = Modifier
 ) {
-    val catcher = LocalSentry.current
+    val sentry = LocalSentry.current
     MailScaffold(
         list = {
             ListRoute()
@@ -21,7 +21,7 @@ fun MailRoute(
         detail = @Composable {
             LaunchedEffect(Unit) {
                 delay(3.seconds)
-                catcher.catch(RuntimeException("Hello!"))
+                sentry.catch(RuntimeException("Hello!"))
             }
         },
         modifier = modifier

@@ -2,18 +2,20 @@ package data.wrapper
 
 import kotlinx.serialization.Serializable
 
+// client
 @Serializable
-sealed class Backend<T> {
-    data class Successed<T>(
-        val data: T
-    ): Backend<T>()
-    data class Failured(
-        val message: String,
-        val code: Int
-    ): Backend<Nothing>()
+data class Backend<T>(
+    val code: Int = 200,
+    val data: T? = null,
+    val message: String = ""
+) : Castable {
+    override fun cast(): CastableException = castable(data?.toString().orEmpty()) {
+        add("code" to code)
+        add("message" to message)
+    }
 }
 
-fun <T> Backend<T>.getOrNull(): T? {
-    return if (this is Backend.Successed<T>) data
-    else null
+val Backend<*>.isSuccessful: Boolean get() = code == 200
+fun <T> Backend<T>.getOrThrow(): T {
+    return checkNotNull(data) { "data is null!" }
 }

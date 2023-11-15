@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.toFontFamily
 import androidx.compose.ui.text.style.TextOverflow
+import data.wrapper.CastableException
 import ui.LocalSpacing
 import ui.LocalTheme
 
@@ -82,7 +83,10 @@ fun UncaughtExceptionHandler(
                 }
 
                 val content = remember(innerException) {
-                    innerException?.stackTraceToString().orEmpty()
+                    when (innerException) {
+                        is CastableException -> innerException.toString()
+                        else -> innerException?.stackTraceToString().orEmpty()
+                    }
                 }
 
                 SelectionContainer {
