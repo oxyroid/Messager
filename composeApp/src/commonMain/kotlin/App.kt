@@ -8,8 +8,8 @@ import feature.settings.SettingsRoute
 import ui.*
 import ui.components.UncaughtExceptionHandler
 import ui.scaffolds.HomeScaffold
-import ui.toolbars.HomeToolbar
 import ui.toolbars.HomeDestination
+import ui.toolbars.HomeToolbar
 
 @Composable
 fun App(
@@ -39,10 +39,6 @@ private fun BasicApp(
 
     val sentry = remember {
         object : Sentry {
-            override fun cast(castable: Castable) {
-                exception = castable.cast()
-            }
-
             override fun catch(e: Exception) {
                 exception = e
             }
@@ -77,8 +73,11 @@ private fun BasicApp(
 
 @Stable
 interface Sentry {
-    fun cast(castable: Castable)
     fun catch(e: Exception)
+}
+
+fun Sentry.cast(castable: Castable) {
+    catch(castable.cast())
 }
 
 val LocalSentry = staticCompositionLocalOf<Sentry> { providableCompostionLocalNotFound() }
