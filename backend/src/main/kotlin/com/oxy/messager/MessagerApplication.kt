@@ -1,5 +1,8 @@
 package com.oxy.messager
 
+import com.oxy.messager.entity.Message
+import com.oxy.messager.ktx.format
+import com.oxy.messager.wrapper.Backend
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.http4k.core.HttpHandler
@@ -8,7 +11,6 @@ import org.http4k.core.Response
 import org.http4k.core.Status.Companion.OK
 import org.http4k.core.then
 import org.http4k.filter.DebuggingFilters.PrintRequest
-import org.http4k.filter.inIntelliJOnly
 import org.http4k.routing.bind
 import org.http4k.routing.routes
 import org.http4k.server.Jetty
@@ -24,13 +26,13 @@ val json by lazy {
 }
 
 val app: HttpHandler = routes(
-    "/chats/sendMessage" bind Method.POST to {
+    "/chats/sendMessage" bind Method.POST to { request ->
         try {
-            val body = it.bodyString()
-            println("body: $body")
-            val message = json.decodeFromString<Message>(body)
-            val result = json.encodeToString(Backend.success(message.withId(1)))
-            println("result: $result")
+            val message = request.format<Message>()
+            println("before: $request")
+            // save to db then return
+            val result = json.encodeToString(Backend.success(message testWithId 1L))
+            println("after: $result")
             Response(OK).body(result)
         } catch (e: Exception) {
             println(e.stackTraceToString())
@@ -40,7 +42,7 @@ val app: HttpHandler = routes(
 )
 
 fun main() {
-    val printingApp: HttpHandler = PrintRequest().inIntelliJOnly().then(app)
+    val printingApp: HttpHandler = PrintRequest().then(app)
     val server = printingApp.asServer(Jetty(9000)).start()
     println("Server started on " + server.port())
 

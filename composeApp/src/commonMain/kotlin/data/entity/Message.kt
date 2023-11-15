@@ -9,7 +9,8 @@ import kotlinx.serialization.modules.subclass
 
 @Serializable
 sealed class Message {
-    // never determine its value in client.
+    // primary key
+    // never determine, auto increment by server
     @SerialName("id")
     abstract val id: Long
 
@@ -23,6 +24,7 @@ sealed class Message {
     @SerialName("type")
     abstract val type: String
 
+    // client only
     @Serializable
     @SerialName(TYPE_UNSUPPORTED)
     data class Unsupported(

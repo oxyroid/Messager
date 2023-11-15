@@ -1,4 +1,4 @@
-package com.oxy.messager
+package com.oxy.messager.wrapper
 
 import kotlinx.serialization.Serializable
 
@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 data class Backend<T>(
     val code: Int = 200,
     val data: T? = null,
-    val message: String = ""
+    val message: String = "success"
 ) {
     companion object {
         fun <T> success(data: T): Backend<T> = Backend(data = data)

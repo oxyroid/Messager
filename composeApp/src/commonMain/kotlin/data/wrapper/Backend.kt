@@ -16,6 +16,3 @@ data class Backend<T>(
 }
 
 val Backend<*>.isSuccessful: Boolean get() = code == 200
-fun <T> Backend<T>.getOrThrow(): T {
-    return checkNotNull(data) { "data is null!" }
-}

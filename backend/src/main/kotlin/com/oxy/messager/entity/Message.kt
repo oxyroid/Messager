@@ -1,4 +1,4 @@
-package com.oxy.messager
+package com.oxy.messager.entity
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -9,12 +9,14 @@ import kotlinx.serialization.modules.subclass
 
 @Serializable
 sealed class Message {
+    // primary key
     @SerialName("id")
     abstract val id: Long
 
     @SerialName("content")
     abstract val content: String
 
+    // conversation id
     @SerialName("cid")
     abstract val cid: Long
 
@@ -37,7 +39,7 @@ sealed class Message {
         @Transient
         override val type: String = TYPE_PLAIN_TEXT
 
-        override fun withId(id: Long): PlainText {
+        override infix fun testWithId(id: Long): PlainText {
             return copy(id = id)
         }
     }
@@ -54,6 +56,6 @@ sealed class Message {
         }
     }
 
-    // server only
-    abstract fun withId(id: Long): Message
+    // server test only
+    abstract infix fun testWithId(id: Long): Message
 }
