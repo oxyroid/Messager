@@ -29,7 +29,7 @@ val app: HttpHandler = routes(
     "/chats/sendMessage" bind Method.POST to { request ->
         try {
             val message = request.format<Message>()
-            println("before: $request")
+            println("before: $message")
             // save to db then return
             val result = json.encodeToString(Backend.success(message testWithId 1L))
             println("after: $result")

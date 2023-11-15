@@ -4,7 +4,10 @@ plugins {
     kotlin("plugin.serialization") version "1.9.0"
 }
 
-application.mainClass = "com.oxy.messager.MessagerApplicationKt"
+application {
+    mainClass = "com.oxy.messager.MessagerApplicationKt"
+}
+
 dependencies {
     implementation(libs.http4k.client.okhttp)
     implementation(libs.http4k.core)
@@ -12,5 +15,4 @@ dependencies {
     implementation(libs.http4k.server.jetty)
     implementation(libs.kotlin.stdlib.jdk8)
     implementation(libs.kotlinx.serialization.json)
-    implementation("org.http4k:http4k-format-kotlinx-serialization")
 }
