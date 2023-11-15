@@ -13,13 +13,22 @@ androidx-material = "1.10.0"
 androidx-constraintlayout = "2.1.4"
 androidx-test-junit = "1.1.5"
 androidx-espresso-core = "3.5.1"
+http4kClientOkhttp = "5.9.0.0"
+kodeinDiFrameworkCompose = "7.19.0"
 kotlin = "1.9.20"
 junit = "4.13.2"
+kotlinVersion = "1.9.0"
 kotlinxSerializationJson = "1.6.0"
 retrofit = "2.9.0"
 retrofit2KotlinxSerializationConverter = "1.0.0"
 
 [libraries]
+http4k-client-okhttp = { module = "org.http4k:http4k-client-okhttp", version.ref = "http4kClientOkhttp" }
+http4k-core = { module = "org.http4k:http4k-core", version.ref = "http4kClientOkhttp" }
+kodein-di-framework-compose = { module = "org.kodein.di:kodein-di-framework-compose", version.ref = "kodeinDiFrameworkCompose" }
+kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlinVersion" }
+http4k-server-jetty = { module = "org.http4k:http4k-server-jetty", version.ref = "http4kClientOkhttp" }
+http4k-format-kotlinx-serialization = { module = "org.http4k:http4k-format-kotlinx-serialization", version.ref = "http4kClientOkhttp" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
