@@ -9,12 +9,14 @@ import kotlinx.serialization.modules.subclass
 
 @Serializable
 sealed class Message {
+    // never determine its value in client.
     @SerialName("id")
     abstract val id: Long
 
     @SerialName("content")
     abstract val content: String
 
+    // conversation id
     @SerialName("cid")
     abstract val cid: Long
 
@@ -63,5 +65,7 @@ sealed class Message {
                 }
             }
         }
+
+        fun plainText(text: String, cid: Long): PlainText = PlainText(text, cid)
     }
 }

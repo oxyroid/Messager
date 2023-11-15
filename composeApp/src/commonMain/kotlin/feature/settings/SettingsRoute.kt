@@ -45,7 +45,8 @@ fun SettingsRoute(
             onClick = {
                 scope.launch(Dispatchers.IO) {
                     try {
-                        val backend = api.sendMessage(Message.PlainText("Hello, World", 1L))
+                        val message = Message.plainText("Hello, World", 1L)
+                        val backend = api.sendMessage(message)
                         sentry.cast(backend)
                     } catch (e: Exception) {
                         sentry.catch(e)
