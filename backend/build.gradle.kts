@@ -14,5 +14,4 @@ dependencies {
     implementation(libs.http4k.format.kotlinx.serialization)
     implementation(libs.http4k.server.jetty)
     implementation(libs.kotlin.stdlib.jdk8)
-    implementation(libs.kotlinx.serialization.json)
 }
