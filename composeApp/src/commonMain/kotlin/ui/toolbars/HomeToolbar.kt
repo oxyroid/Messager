@@ -14,9 +14,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 
 @Composable
 expect fun HomeToolbar(
+    destination: HomeToolbarDestination,
     modifier: Modifier = Modifier,
     destinationFactory: () -> List<HomeToolbarDestination> = { HomeToolbarDestination.entries },
-    destination: HomeToolbarDestination,
     onDestination: (HomeToolbarDestination) -> Unit,
 )
 

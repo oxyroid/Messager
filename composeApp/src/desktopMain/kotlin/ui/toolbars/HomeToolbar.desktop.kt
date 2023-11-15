@@ -14,9 +14,9 @@ import ui.LocalTheme
 
 @Composable
 actual fun HomeToolbar(
+    destination: HomeToolbarDestination,
     modifier: Modifier,
     destinationFactory: () -> List<HomeToolbarDestination>,
-    destination: HomeToolbarDestination,
     onDestination: (HomeToolbarDestination) -> Unit,
 ) {
     val spacing = LocalSpacing.current

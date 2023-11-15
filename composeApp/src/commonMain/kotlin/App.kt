@@ -19,7 +19,7 @@ fun App(
         var destination: HomeToolbarDestination by remember { mutableStateOf(HomeToolbarDestination.MAILS) }
         HomeScaffold(
             toolbar = {
-                HomeToolbar(destination = destination) { destination = it }
+                HomeToolbar(destination) { destination = it }
             },
             modifier = modifier
         ) {
