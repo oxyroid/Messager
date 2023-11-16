@@ -14,7 +14,7 @@ val kodein = DI {
         val contentType = MediaType.get("application/json")
         val json: Json by di.instance()
         Retrofit.Builder()
-            .baseUrl("http://127.0.0.1:9000/")
+            .baseUrl("http://127.0.0.1:8080/")
             .addConverterFactory(json.asConverterFactory(contentType))
             .build()
     }

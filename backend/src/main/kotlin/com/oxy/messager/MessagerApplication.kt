@@ -1,49 +1,60 @@
 package com.oxy.messager
 
 import com.oxy.messager.entity.Message
-import com.oxy.messager.ktx.format
 import com.oxy.messager.wrapper.Backend
-import kotlinx.serialization.encodeToString
+import io.ktor.serialization.kotlinx.json.*
+import io.ktor.server.application.*
+import io.ktor.server.engine.*
+import io.ktor.server.netty.*
+import io.ktor.server.plugins.contentnegotiation.*
+import io.ktor.server.request.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
 import kotlinx.serialization.json.Json
-import org.http4k.core.HttpHandler
-import org.http4k.core.Method
-import org.http4k.core.Response
-import org.http4k.core.Status.Companion.OK
-import org.http4k.core.then
-import org.http4k.filter.DebuggingFilters.PrintRequest
-import org.http4k.routing.bind
-import org.http4k.routing.routes
-import org.http4k.server.Jetty
-import org.http4k.server.asServer
 
-val json by lazy {
-    Json {
-        encodeDefaults = true
-        serializersModule = Message.module
-        classDiscriminator = "type"
-        prettyPrint = true
+fun main() {
+    embeddedServer(
+        factory = Netty,
+        port = 8080,
+        host = "127.0.0.1",
+        module = Application::module
+    )
+        .start(wait = true)
+}
+
+fun Application.module() {
+    configureRouting()
+    configureSerialization()
+}
+
+fun Application.configureRouting() {
+    routing {
+        route("/chats") {
+            post("sendMessage") {
+                try {
+                    val message = call.receive<Message>()
+                    println("before: $message")
+                    // save to db then return
+                    val result = Backend.success(message testWithId 1L)
+                    println("after: $result")
+                    call.respond(result)
+                } catch (e: Exception) {
+                    println(e.stackTraceToString())
+                    throw e
+                }
+            }
+        }
     }
 }
 
-val app: HttpHandler = routes(
-    "/chats/sendMessage" bind Method.POST to { request ->
-        try {
-            val message = request.format<Message>()
-            println("before: $message")
-            // save to db then return
-            val result = json.encodeToString(Backend.success(message testWithId 1L))
-            println("after: $result")
-            Response(OK).body(result)
-        } catch (e: Exception) {
-            println(e.stackTraceToString())
-            throw e
-        }
+fun Application.configureSerialization() {
+    install(ContentNegotiation) {
+        json(
+            json = Json {
+                encodeDefaults = true
+                serializersModule = Message.module
+                prettyPrint = true
+            }
+        )
     }
-)
-
-fun main() {
-    val printingApp: HttpHandler = PrintRequest().then(app)
-    val server = printingApp.asServer(Jetty(9000)).start()
-    println("Server started on " + server.port())
-
 }

@@ -19,19 +19,13 @@ kotlin = "1.9.20"
 junit = "4.13.2"
 kotlinVersion = "1.9.0"
 kotlinxSerializationJson = "1.6.0"
+ktorServerStatusPagesJvm = "2.3.6"
+logbackClassic = "1.2.11"
 retrofit = "2.9.0"
 retrofit2KotlinxSerializationConverter = "1.0.0"
 
 [libraries]
-http4k-client-okhttp = { module = "org.http4k:http4k-client-okhttp", version.ref = "http4kClientOkhttp" }
-http4k-core = { module = "org.http4k:http4k-core", version.ref = "http4kClientOkhttp" }
 kodein-di-framework-compose = { module = "org.kodein.di:kodein-di-framework-compose", version.ref = "kodeinDiFrameworkCompose" }
-kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlinVersion" }
-http4k-server-jetty = { module = "org.http4k:http4k-server-jetty", version.ref = "http4kClientOkhttp" }
-http4k-format-kotlinx-serialization = { module = "org.http4k:http4k-format-kotlinx-serialization", version.ref = "http4kClientOkhttp" }
-kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
-junit = { group = "junit", name = "junit", version.ref = "junit" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
@@ -45,6 +39,11 @@ androidx-material = { group = "com.google.android.material", name = "material", 
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraintlayout" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+ktor-server-core-jvm = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktorServerStatusPagesJvm" }
+ktor-server-default-headers-jvm = { module = "io.ktor:ktor-server-default-headers-jvm", version.ref = "ktorServerStatusPagesJvm" }
+ktor-server-netty-jvm = { module = "io.ktor:ktor-server-netty-jvm", version.ref = "ktorServerStatusPagesJvm" }
+ktor-server-status-pages-jvm = { module = "io.ktor:ktor-server-status-pages-jvm", version.ref = "ktorServerStatusPagesJvm" }
+logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logbackClassic" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit2-kotlinx-serialization-converter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofit2KotlinxSerializationConverter" }
 

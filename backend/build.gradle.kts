@@ -2,6 +2,7 @@ plugins {
     application
     kotlin("jvm")
     kotlin("plugin.serialization") version "1.9.0"
+    id("io.ktor.plugin") version "2.3.6"
 }
 
 application {
@@ -9,9 +10,12 @@ application {
 }
 
 dependencies {
-    implementation(libs.http4k.client.okhttp)
-    implementation(libs.http4k.core)
-    implementation(libs.http4k.format.kotlinx.serialization)
-    implementation(libs.http4k.server.jetty)
-    implementation(libs.kotlin.stdlib.jdk8)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.ktor.server.core.jvm)
+    implementation(libs.ktor.server.netty.jvm)
+    implementation(libs.ktor.server.status.pages.jvm)
+    implementation(libs.ktor.server.default.headers.jvm)
+    implementation("io.ktor:ktor-server-content-negotiation-jvm")
+    implementation("io.ktor:ktor-serialization-kotlinx-json-jvm")
+    implementation(libs.logback.classic)
 }
